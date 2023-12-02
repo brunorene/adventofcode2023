@@ -1,41 +1,44 @@
-package main
+package day1
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/brunorene/adventofcode2023/common"
 )
 
-func day1Part1() {
-	file, err := os.Open("day1.txt")
-	checkError(err)
+func Part1() string {
+	file, err := os.Open("day1/input")
+	common.CheckError(err)
 
 	defer file.Close()
 
-	firstRegex := regexp.MustCompile("^[a-z]*([0-9])")
-	LastRegex := regexp.MustCompile("([0-9])[a-z]*$")
+	firstRegex := regexp.MustCompile(`^[a-z]*(\d)`)
+	LastRegex := regexp.MustCompile(`(\d)[a-z]*$`)
 
-	var sum int
+	var sum int64
 
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
+
 	for scanner.Scan() {
 		line := scanner.Text()
 		firstDigit := firstRegex.FindStringSubmatch(line)[1]
 		lastDigit := LastRegex.FindStringSubmatch(line)[1]
 
 		number, err := strconv.Atoi(firstDigit + lastDigit)
-		checkError(err)
+		common.CheckError(err)
 
-		sum += number
+		sum += int64(number)
 	}
 
-	fmt.Println(sum)
+	return strconv.FormatInt(sum, 10)
 }
 
+//nolint:cyclop // complexity???
 func convert(number string) string {
 	switch number {
 	case "one":
@@ -61,13 +64,12 @@ func convert(number string) string {
 	}
 }
 
-var numbers = []string{"1", "one", "2", "two", "3", "three", "4", "four", "5", "five", "6", "six", "7", "seven", "8", "eight", "9", "nine"}
-
 func findFirst(line string) string {
 	minIdx := len(line)
+
 	var result string
 
-	for _, number := range numbers {
+	for _, number := range Numbers() {
 		index := strings.Index(line, number)
 		if index < minIdx && index >= 0 {
 			minIdx = index
@@ -78,11 +80,22 @@ func findFirst(line string) string {
 	return result
 }
 
+func Numbers() []string {
+	return []string{
+		"1", "one", "2", "two",
+		"3", "three", "4", "four",
+		"5", "five", "6", "six",
+		"7", "seven", "8", "eight",
+		"9", "nine",
+	}
+}
+
 func findLast(line string) string {
 	maxIdx := -1
+
 	var result string
 
-	for _, number := range numbers {
+	for _, number := range Numbers() {
 		index := strings.LastIndex(line, number)
 		if index > maxIdx && index >= 0 {
 			maxIdx = index
@@ -93,25 +106,24 @@ func findLast(line string) string {
 	return result
 }
 
-func day1Part2() {
-	file, err := os.Open("day1.txt")
-	checkError(err)
+func Part2() string {
+	file, err := os.Open("day1/input")
+	common.CheckError(err)
 
 	defer file.Close()
 
-	var sum int
+	var sum int64
 
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)
+
 	for scanner.Scan() {
 		line := scanner.Text()
 		number, err := strconv.Atoi(convert(findFirst(line)) + convert(findLast(line)))
-		checkError(err)
+		common.CheckError(err)
 
-		fmt.Println(line, number)
-
-		sum += number
+		sum += int64(number)
 	}
 
-	fmt.Println(sum)
+	return strconv.FormatInt(sum, 10)
 }
