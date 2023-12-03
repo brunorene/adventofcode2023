@@ -2,7 +2,9 @@ package day03
 
 import (
 	"bufio"
+	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"unicode"
 
@@ -16,6 +18,7 @@ const (
 	symbolType
 	maxRow = 140
 	maxCol
+	gearCount = 2
 )
 
 type coord struct {
@@ -36,6 +39,11 @@ type part interface {
 	around() []coord
 	myType() partType
 	getValue() int64
+	getKey() string
+}
+
+func (s symbol) getKey() string {
+	return fmt.Sprintf("%+v", s)
 }
 
 func (s symbol) getValue() int64 {
@@ -63,6 +71,10 @@ func (s symbol) around() (result []coord) {
 	}
 
 	return result
+}
+
+func (n number) getKey() string {
+	return fmt.Sprintf("%+v", n)
 }
 
 func (n number) getValue() int64 {
@@ -125,6 +137,10 @@ func (e *engine) addNumber(numStr string, col, row int) string {
 			coords = append(coords, coord{i, row})
 		}
 
+		sort.Slice(coords, func(i, j int) bool {
+			return coords[i].x < coords[j].x || (coords[i].x == coords[j].x && coords[i].y < coords[j].y)
+		})
+
 		item := number{value: num, coords: coords}
 
 		e.parts = append(e.parts, item)
@@ -176,6 +192,10 @@ func parse() (parsed engine) {
 			}
 		}
 
+		if numStr != "" {
+			numStr = parsed.addNumber(numStr, maxCol, yIdx)
+		}
+
 		yIdx++
 	}
 
@@ -188,17 +208,54 @@ func Part1() string {
 	var sum int64
 
 	for Idx := range current.parts {
-		if current.parts[Idx].myType() == numberType {
-			borders := current.parts[Idx].around()
+		if current.parts[Idx].myType() != numberType {
+			continue
+		}
 
-			for _, border := range borders {
-				part, exists := current.location[border]
-				if exists && part.myType() == symbolType {
-					sum += current.parts[Idx].getValue()
+		borders := current.parts[Idx].around()
 
-					break
-				}
+		for _, border := range borders {
+			part, exists := current.location[border]
+			if exists && part.myType() == symbolType {
+				sum += current.parts[Idx].getValue()
+
+				break
 			}
+		}
+	}
+
+	return strconv.FormatInt(sum, 10)
+}
+
+func Part2() string {
+	current := parse()
+
+	var sum int64
+
+	for Idx := range current.parts {
+		if current.parts[Idx].myType() != symbolType || rune(current.parts[Idx].getValue()) != '*' {
+			continue
+		}
+
+		borders := current.parts[Idx].around()
+
+		adjacents := make(map[string]part)
+
+		for _, border := range borders {
+			part, exists := current.location[border]
+			if exists && part.myType() == numberType {
+				adjacents[part.getKey()] = part
+			}
+		}
+
+		if len(adjacents) == gearCount {
+			mult := int64(1)
+
+			for _, part := range adjacents {
+				mult *= part.getValue()
+			}
+
+			sum += mult
 		}
 	}
 
