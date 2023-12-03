@@ -3,8 +3,9 @@ package main
 import (
 	"log"
 
-	"github.com/brunorene/adventofcode2023/day1"
-	"github.com/brunorene/adventofcode2023/day2"
+	"github.com/brunorene/adventofcode2023/day01"
+	"github.com/brunorene/adventofcode2023/day02"
+	"github.com/brunorene/adventofcode2023/day03"
 )
 
 const (
@@ -14,8 +15,9 @@ const (
 )
 
 func main() {
-	log.Println("day1 part1", day1.Part1())
-	log.Println("day1 part2", day1.Part2())
-	log.Println("day2 part1", day2.Part1(redMax, greenMax, blueMax))
-	log.Println("day2 part2", day2.Part2())
+	log.Println("day1 part1", day01.Part1())
+	log.Println("day1 part2", day01.Part2())
+	log.Println("day2 part1", day02.Part1(redMax, greenMax, blueMax))
+	log.Println("day2 part2", day02.Part2())
+	log.Println("day3 part2", day03.Part1())
 }

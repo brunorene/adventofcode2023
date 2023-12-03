@@ -1,4 +1,4 @@
-package day2
+package day02
 
 import (
 	"bufio"
@@ -28,7 +28,7 @@ func (m Move) possible(redMax, greenMax, blueMax int64) bool {
 }
 
 func parse() (out Input) {
-	file, err := os.Open("day2/input")
+	file, err := os.Open("day02/input")
 	common.CheckError(err)
 
 	defer file.Close()

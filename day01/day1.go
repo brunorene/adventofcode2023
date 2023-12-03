@@ -1,4 +1,4 @@
-package day1
+package day01
 
 import (
 	"bufio"
@@ -11,7 +11,7 @@ import (
 )
 
 func Part1() string {
-	file, err := os.Open("day1/input")
+	file, err := os.Open("day01/input")
 	common.CheckError(err)
 
 	defer file.Close()
@@ -107,7 +107,7 @@ func findLast(line string) string {
 }
 
 func Part2() string {
-	file, err := os.Open("day1/input")
+	file, err := os.Open("day01/input")
 	common.CheckError(err)
 
 	defer file.Close()
