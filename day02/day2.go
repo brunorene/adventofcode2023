@@ -31,7 +31,9 @@ func parse() (out Input) {
 	file, err := os.Open("day02/input")
 	common.CheckError(err)
 
-	defer file.Close()
+	defer func(file *os.File) {
+		_ = file.Close()
+	}(file)
 
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)

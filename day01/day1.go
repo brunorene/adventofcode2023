@@ -14,7 +14,9 @@ func Part1() string {
 	file, err := os.Open("day01/input")
 	common.CheckError(err)
 
-	defer file.Close()
+	defer func(file *os.File) {
+		_ = file.Close()
+	}(file)
 
 	firstRegex := regexp.MustCompile(`^[a-z]*(\d)`)
 	LastRegex := regexp.MustCompile(`(\d)[a-z]*$`)
@@ -110,7 +112,9 @@ func Part2() string {
 	file, err := os.Open("day01/input")
 	common.CheckError(err)
 
-	defer file.Close()
+	defer func(file *os.File) {
+		_ = file.Close()
+	}(file)
 
 	var sum int64
 
