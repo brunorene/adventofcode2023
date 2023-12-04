@@ -6,6 +6,7 @@ import (
 	"github.com/brunorene/adventofcode2023/day01"
 	"github.com/brunorene/adventofcode2023/day02"
 	"github.com/brunorene/adventofcode2023/day03"
+	"github.com/brunorene/adventofcode2023/day04"
 )
 
 const (
@@ -15,10 +16,12 @@ const (
 )
 
 func main() {
-	log.Println("day1 part1", day01.Part1())
-	log.Println("day1 part2", day01.Part2())
-	log.Println("day2 part1", day02.Part1(redMax, greenMax, blueMax))
-	log.Println("day2 part2", day02.Part2())
-	log.Println("day3 part1", day03.Part1())
-	log.Println("day3 part2", day03.Part2())
+	log.Println("day01 part1", day01.Part1())
+	log.Println("day01 part2", day01.Part2())
+	log.Println("day02 part1", day02.Part1(redMax, greenMax, blueMax))
+	log.Println("day02 part2", day02.Part2())
+	log.Println("day03 part1", day03.Part1())
+	log.Println("day03 part2", day03.Part2())
+	log.Println("day04 part1", day04.Part1())
+	log.Println("day04 part2", day04.Part2())
 }
