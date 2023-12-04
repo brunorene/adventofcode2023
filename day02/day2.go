@@ -9,6 +9,12 @@ import (
 	"github.com/brunorene/adventofcode2023/common"
 )
 
+const (
+	redMax   = int64(12)
+	greenMax = int64(13)
+	blueMax  = int64(14)
+)
+
 type Move struct {
 	red   int64
 	green int64
@@ -76,7 +82,7 @@ func parse() (out Input) {
 	return out
 }
 
-func Part1(redMax, greenMax, blueMax int64) string {
+func Part1() string {
 	var sum int64
 
 	input := parse()
