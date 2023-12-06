@@ -9,15 +9,6 @@ type Race struct {
 	Distance int64
 }
 
-func getRaces() []Race {
-	return []Race{
-		{41, 214},
-		{96, 1789},
-		{88, 1127},
-		{94, 1055},
-	}
-}
-
 func wins(race Race) (count int64) {
 	for button := int64(0); button <= race.Time; button++ {
 		travel := button * (race.Time - button)
@@ -33,7 +24,12 @@ func wins(race Race) (count int64) {
 func Part1() string {
 	mult := int64(1)
 
-	for _, race := range getRaces() {
+	for _, race := range []Race{
+		{41, 214},
+		{96, 1789},
+		{88, 1127},
+		{94, 1055},
+	} {
 		mult *= wins(race)
 	}
 
