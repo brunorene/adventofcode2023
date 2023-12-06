@@ -19,6 +19,8 @@ linters:
     - tagalign # the end result is debatable...
     - depguard
     - nonamedreturns
+    - exhaustruct
+    - govet
 linters-settings:
   gci:
     sections:
