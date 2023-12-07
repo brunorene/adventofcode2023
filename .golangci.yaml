@@ -21,6 +21,7 @@ linters:
     - nonamedreturns
     - exhaustruct
     - govet
+    - gomnd
 linters-settings:
   gci:
     sections:

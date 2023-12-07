@@ -35,6 +35,7 @@ func Part1() string {
 
 	return strconv.FormatInt(mult, 10)
 }
+
 func Part2() string {
 	singleRace := Race{
 		Time:     41968894,

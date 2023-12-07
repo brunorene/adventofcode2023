@@ -231,7 +231,6 @@ func Part2() string {
 				minimum = location.SourceStart
 			}
 		}
-
 	}
 
 	return strconv.FormatInt(minimum, 10)
