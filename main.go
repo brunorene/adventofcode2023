@@ -11,6 +11,7 @@ import (
 	"github.com/brunorene/adventofcode2023/day06"
 	"github.com/brunorene/adventofcode2023/day07"
 	"github.com/brunorene/adventofcode2023/day08"
+	"github.com/brunorene/adventofcode2023/day09"
 )
 
 func main() {
@@ -30,4 +31,6 @@ func main() {
 	log.Println("day07 part2", day07.Part2())
 	log.Println("day08 part1", day08.Part1())
 	log.Println("day08 part2", day08.Part2())
+	log.Println("day09 part1", day09.Part1())
+	log.Println("day09 part2", day09.Part2())
 }

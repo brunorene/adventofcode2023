@@ -2,9 +2,9 @@ package day08
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/brunorene/adventofcode2023/common"
@@ -29,6 +29,7 @@ type DesertMap struct {
 func (d *DesertMap) nextDirection() rune {
 	next := rune(d.Directions[d.current])
 	d.current = (d.current + 1) % len(d.Directions)
+
 	return next
 }
 
@@ -39,8 +40,10 @@ func (d *DesertMap) stepsFromTo(start Node, endsWith string) int64 {
 
 	for {
 		steps++
+
 		nextDirection := d.nextDirection()
 		nextNode := currentNode.Junction[nextDirection]
+
 		if strings.HasSuffix(nextNode, endsWith) {
 			return steps
 		}
@@ -92,7 +95,7 @@ func parse() (parsed DesertMap) {
 func Part1() string {
 	dMap := parse()
 
-	return fmt.Sprintf("%d", dMap.stepsFromTo(dMap.Nodes["AAA"], "ZZZ"))
+	return strconv.FormatInt(dMap.stepsFromTo(dMap.Nodes["AAA"], "ZZZ"), 10)
 }
 
 func Part2() string {
@@ -106,16 +109,17 @@ func Part2() string {
 		}
 	}
 
-	return fmt.Sprintf("%d", LCM(steps[0], steps[1], steps[2:]...))
+	return strconv.FormatInt(LCM(steps[0], steps[1], steps[2:]...), 10)
 }
 
-func GCD(a, b int64) int64 {
-	for b != 0 {
-		t := b
-		b = a % b
-		a = t
+func GCD(valA, valB int64) int64 {
+	for valB != 0 {
+		t := valB
+		valB = valA % valB
+		valA = t
 	}
-	return a
+
+	return valA
 }
 
 func LCM(a, b int64, integers ...int64) int64 {
