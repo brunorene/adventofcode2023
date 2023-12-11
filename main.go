@@ -38,5 +38,5 @@ func main() {
 	log.Println("day10 part1", day10.Part1())
 	log.Println("day10 part2", day10.Part2())
 	log.Println("day11 part1", day11.Part1())
-	log.Println("day11 part1", day11.Part2())
+	log.Println("day11 part2", day11.Part2())
 }
