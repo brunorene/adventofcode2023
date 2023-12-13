@@ -2,9 +2,9 @@ package day11
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"sort"
+	"strconv"
 
 	"github.com/brunorene/adventofcode2023/common"
 )
@@ -12,8 +12,8 @@ import (
 type SpaceType rune
 
 const (
-	Galaxy     SpaceType = '#'
 	SquareSize           = 140
+	Galaxy     SpaceType = '#'
 )
 
 type Coords struct {
@@ -42,6 +42,7 @@ func (g GalaxyPairs) Contains(pair Pair) bool {
 	}
 
 	_, exists := g[pair]
+
 	return exists
 }
 
@@ -56,7 +57,9 @@ func (g GalaxyPairs) Add(pair Pair) {
 	g[pair] = struct{}{}
 }
 
-func expandUniverse(multInc int64, input []Coords, coordGetter func(Coords) int64, coordIncrease func(Coords, int64) Coords) []Coords {
+func expandUniverse(multInc int64, input []Coords, coordGetter func(Coords) int64,
+	coordIncrease func(Coords, int64) Coords,
+) []Coords {
 	emptyLines := make(map[int]struct{})
 
 	for i := 0; i < SquareSize; i++ {
@@ -141,7 +144,7 @@ func findDistanceSum(multInc int64) string {
 		}
 	}
 
-	return fmt.Sprintf("%d", sum)
+	return strconv.FormatInt(sum, 10)
 }
 
 func Part1() string {
