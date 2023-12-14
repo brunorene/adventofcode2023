@@ -1,6 +1,6 @@
 module github.com/brunorene/adventofcode2023
 
-go 1.21.5
+go 1.21
 
 require github.com/stretchr/testify v1.8.4
 
