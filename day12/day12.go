@@ -117,19 +117,7 @@ func combinations(starter [][]int, spaceCount int) (result [][]int) {
 		return [][]int{{}}
 	}
 
-	innerStarter := make([][]int, len(starter))
-
-	for arrIdx, arr := range starter {
-		for numIdx, num := range arr {
-			if num == spaceCount && numIdx < len(starter[arrIdx])-1 {
-				innerStarter[arrIdx] = starter[arrIdx][:numIdx+1]
-
-				break
-			} else {
-				innerStarter[arrIdx] = starter[arrIdx]
-			}
-		}
-	}
+	innerStarter := createStarter(starter, spaceCount)
 
 	// key := newMemoizeKey(innerStarter, spaceCount)
 	//
@@ -152,6 +140,24 @@ func combinations(starter [][]int, spaceCount int) (result [][]int) {
 	// memoizeStore.Store(key, result)
 
 	return result
+}
+
+func createStarter(starter [][]int, spaceCount int) [][]int {
+	innerStarter := make([][]int, len(starter))
+
+	for arrIdx, arr := range starter {
+		for numIdx, num := range arr {
+			if num == spaceCount && numIdx < len(starter[arrIdx])-1 {
+				innerStarter[arrIdx] = starter[arrIdx][:numIdx+1]
+
+				break
+			} else {
+				innerStarter[arrIdx] = starter[arrIdx]
+			}
+		}
+	}
+
+	return innerStarter
 }
 
 func createCandidate(distribution, spaces []int) (result string) {

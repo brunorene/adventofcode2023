@@ -19,8 +19,8 @@ import (
 	"github.com/brunorene/adventofcode2023/day13"
 )
 
+//nolint:funlen // its ok
 func main() {
-
 	start := time.Now()
 	log.Printf("day01 part1: %v (%v)", day01.Part1(), time.Since(start))
 	start = time.Now()

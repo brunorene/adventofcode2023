@@ -46,7 +46,6 @@ func rotate(rows []Bitset) (cols []Bitset) {
 		var current string
 
 		for rowIdx := range rows {
-
 			current += string(rows[rowIdx].String()[colIdx])
 		}
 
@@ -117,15 +116,15 @@ func reflectionMatch(lines []Bitset, withSmudge bool) (result int) {
 
 		reflectionOk := true
 
-		for i := 0; i < min(len(left), len(right)); i++ {
-			xorResult := right[i].Num ^ left[i].Num
+		for idx := 0; idx < min(len(left), len(right)); idx++ {
+			xorResult := right[idx].Num ^ left[idx].Num
 			if !smudgeFound && xorResult > 0 && (xorResult&(xorResult-1)) == 0 {
 				smudgeFound = true
 
 				continue
 			}
 
-			if right[i].Num != left[i].Num {
+			if right[idx].Num != left[idx].Num {
 				reflectionOk = false
 
 				break
@@ -140,7 +139,7 @@ func reflectionMatch(lines []Bitset, withSmudge bool) (result int) {
 	return 0
 }
 
-func (n Note) summarize(withSmudge bool) (int, int) {
+func (n Note) summarize(withSmudge bool) (horz, vert int) {
 	return reflectionMatch(n.Horizontal, withSmudge), reflectionMatch(n.Vertical, withSmudge)
 }
 
