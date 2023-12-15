@@ -18,6 +18,7 @@ import (
 	"github.com/brunorene/adventofcode2023/day12"
 	"github.com/brunorene/adventofcode2023/day13"
 	"github.com/brunorene/adventofcode2023/day14"
+	"github.com/brunorene/adventofcode2023/day15"
 )
 
 //nolint:funlen // its ok
@@ -78,4 +79,8 @@ func main() {
 	log.Printf("day14 part1: %v (%v)", day14.Part1(), time.Since(start))
 	start = time.Now()
 	log.Printf("day14 part2: %v (%v)", day14.Part2(), time.Since(start))
+	start = time.Now()
+	log.Printf("day15 part1: %v (%v)", day15.Part1(), time.Since(start))
+	start = time.Now()
+	log.Printf("day15 part2: %v (%v)", day15.Part2(), time.Since(start))
 }
