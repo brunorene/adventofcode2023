@@ -204,7 +204,7 @@ func parse() (parsed engine) {
 	return parsed
 }
 
-func Part1() string {
+func Part1() int64 {
 	current := parse()
 
 	var sum int64
@@ -226,10 +226,10 @@ func Part1() string {
 		}
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }
 
-func Part2() string {
+func Part2() int64 {
 	current := parse()
 
 	var sum int64
@@ -261,5 +261,5 @@ func Part2() string {
 		}
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }

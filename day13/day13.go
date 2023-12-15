@@ -143,7 +143,7 @@ func (n Note) summarize(withSmudge bool) (horz, vert int) {
 	return reflectionMatch(n.Horizontal, withSmudge), reflectionMatch(n.Vertical, withSmudge)
 }
 
-func summarizeAllNotes(withSmudge bool) string {
+func summarizeAllNotes(withSmudge bool) int {
 	notes := parse()
 
 	var sum int
@@ -154,13 +154,13 @@ func summarizeAllNotes(withSmudge bool) string {
 		sum += vert + 100*horz
 	}
 
-	return strconv.FormatInt(int64(sum), 10)
+	return sum
 }
 
-func Part1() string {
+func Part1() int {
 	return summarizeAllNotes(false)
 }
 
-func Part2() string {
+func Part2() int {
 	return summarizeAllNotes(true)
 }

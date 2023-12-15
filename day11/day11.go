@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"os"
 	"sort"
-	"strconv"
 
 	"github.com/brunorene/adventofcode2023/common"
 )
@@ -125,7 +124,7 @@ func parse(multInc int64) (parsed Galaxies) {
 	return parsed
 }
 
-func findDistanceSum(multInc int64) string {
+func findDistanceSum(multInc int64) int64 {
 	galaxies := parse(multInc)
 
 	pairs := make(GalaxyPairs)
@@ -144,13 +143,13 @@ func findDistanceSum(multInc int64) string {
 		}
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }
 
-func Part1() string {
+func Part1() int64 {
 	return findDistanceSum(2)
 }
 
-func Part2() string {
+func Part2() int64 {
 	return findDistanceSum(1000000)
 }

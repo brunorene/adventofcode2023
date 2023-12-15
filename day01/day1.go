@@ -10,7 +10,7 @@ import (
 	"github.com/brunorene/adventofcode2023/common"
 )
 
-func Part1() string {
+func Part1() int64 {
 	file, err := os.Open("day01/input")
 	common.CheckError(err)
 
@@ -37,7 +37,7 @@ func Part1() string {
 		sum += int64(number)
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }
 
 //nolint:cyclop // complexity???
@@ -108,7 +108,7 @@ func findLast(line string) string {
 	return result
 }
 
-func Part2() string {
+func Part2() int64 {
 	file, err := os.Open("day01/input")
 	common.CheckError(err)
 
@@ -129,5 +129,5 @@ func Part2() string {
 		sum += int64(number)
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }

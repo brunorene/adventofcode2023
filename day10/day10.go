@@ -5,7 +5,6 @@ import (
 	"os"
 	"slices"
 	"sort"
-	"strconv"
 
 	"github.com/brunorene/adventofcode2023/common"
 )
@@ -19,7 +18,6 @@ const (
 	SouthWest  PipeType = '7'
 	SouthEast  PipeType = 'F'
 	EastWest   PipeType = '-'
-	Ground     PipeType = '.'
 	Start      PipeType = 'S'
 	MaxCol              = 140
 	MaxRow              = 140
@@ -214,10 +212,10 @@ func (a *Area) GetDistance() (distance int64) {
 	return distance
 }
 
-func Part1() string {
+func Part1() int64 {
 	area := parse()
 
-	return strconv.FormatInt(area.GetDistance(), 10)
+	return area.GetDistance()
 }
 
 func addSorted(list sort.IntSlice, item int) sort.IntSlice {
@@ -298,8 +296,8 @@ func (a *Area) insideLoop(loop map[int]sort.IntSlice) (result []Coords) {
 	return result
 }
 
-func Part2() string {
+func Part2() int {
 	area := parse()
 
-	return strconv.FormatInt(int64(len(area.insideLoop(area.BelongToLoop()))), 10)
+	return len(area.insideLoop(area.BelongToLoop()))
 }

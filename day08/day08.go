@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"os"
 	"regexp"
-	"strconv"
 	"strings"
 
 	"github.com/brunorene/adventofcode2023/common"
@@ -92,13 +91,13 @@ func parse() (parsed DesertMap) {
 	return parsed
 }
 
-func Part1() string {
+func Part1() int64 {
 	dMap := parse()
 
-	return strconv.FormatInt(dMap.stepsFromTo(dMap.Nodes["AAA"], "ZZZ"), 10)
+	return dMap.stepsFromTo(dMap.Nodes["AAA"], "ZZZ")
 }
 
-func Part2() string {
+func Part2() int64 {
 	dMap := parse()
 
 	var steps []int64
@@ -109,7 +108,7 @@ func Part2() string {
 		}
 	}
 
-	return strconv.FormatInt(LCM(steps[0], steps[1], steps[2:]...), 10)
+	return LCM(steps[0], steps[1], steps[2:]...)
 }
 
 func GCD(valA, valB int64) int64 {

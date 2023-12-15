@@ -1,9 +1,5 @@
 package day06
 
-import (
-	"strconv"
-)
-
 type Race struct {
 	Time     int64
 	Distance int64
@@ -21,7 +17,7 @@ func wins(race Race) (count int64) {
 	return count
 }
 
-func Part1() string {
+func Part1() int64 {
 	mult := int64(1)
 
 	for _, race := range []Race{
@@ -33,14 +29,14 @@ func Part1() string {
 		mult *= wins(race)
 	}
 
-	return strconv.FormatInt(mult, 10)
+	return mult
 }
 
-func Part2() string {
+func Part2() int64 {
 	singleRace := Race{
 		Time:     41968894,
 		Distance: 214178911271055,
 	}
 
-	return strconv.FormatInt(wins(singleRace), 10)
+	return wins(singleRace)
 }

@@ -115,7 +115,7 @@ func parse() (parsed []card) {
 	return parsed
 }
 
-func Part1() string {
+func Part1() int64 {
 	cards := parse()
 
 	var sum int64
@@ -124,10 +124,10 @@ func Part1() string {
 		sum += card.points()
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }
 
-func Part2() string {
+func Part2() int64 {
 	cards := parse()
 
 	for idx, current := range cards {
@@ -144,5 +144,5 @@ func Part2() string {
 		sum += int64(current.count)
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }

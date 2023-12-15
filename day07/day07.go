@@ -158,7 +158,7 @@ func parse() (parsed []Play) {
 	return parsed
 }
 
-func Part1() string {
+func Part1() int64 {
 	parsed := parse()
 
 	sorted := SortPlays(parsed, Cards1, GetHandType)
@@ -169,10 +169,10 @@ func Part1() string {
 		sum += int64(idx+1) * play.Bid
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }
 
-func Part2() string {
+func Part2() int64 {
 	parsed := parse()
 
 	sorted := SortPlays(parsed, Cards2, GetHandTypeWithJoker)
@@ -183,5 +183,5 @@ func Part2() string {
 		sum += int64(idx+1) * play.Bid
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }

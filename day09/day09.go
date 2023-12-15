@@ -84,10 +84,10 @@ func processBackwardMeasure(values []int64) int64 {
 	return pyramid[0][0]
 }
 
-func Part1() string {
-	return strconv.FormatInt(process(processMeasure), 10)
+func Part1() int64 {
+	return process(processMeasure)
 }
 
-func Part2() string {
-	return strconv.FormatInt(process(processBackwardMeasure), 10)
+func Part2() int64 {
+	return process(processBackwardMeasure)
 }

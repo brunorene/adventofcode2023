@@ -206,7 +206,7 @@ func (s Spring) generator() []string {
 	return candidates
 }
 
-func totalCandidates(repeat int) string {
+func totalCandidates(repeat int) int {
 	springs := parse(repeat)
 
 	var result int
@@ -217,13 +217,13 @@ func totalCandidates(repeat int) string {
 		result += len(candidates)
 	}
 
-	return strconv.FormatInt(int64(result), 10)
+	return result
 }
 
-func Part1() string {
+func Part1() int {
 	return totalCandidates(1)
 }
 
-func Part2() string {
+func Part2() int {
 	return totalCandidates(5)
 }

@@ -82,7 +82,7 @@ func parse() (out Input) {
 	return out
 }
 
-func Part1() string {
+func Part1() int64 {
 	var sum int64
 
 	input := parse()
@@ -106,10 +106,10 @@ func Part1() string {
 		sum += idx + 1
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }
 
-func Part2() string {
+func Part2() int64 {
 	var sum int64
 
 	input := parse()
@@ -125,5 +125,5 @@ func Part2() string {
 		sum += maxRed * maxGreen * maxBlue
 	}
 
-	return strconv.FormatInt(sum, 10)
+	return sum
 }

@@ -103,7 +103,7 @@ func (a almanac) seedToLocation(seed int64) int64 {
 	return current
 }
 
-func Part1() string {
+func Part1() int64 {
 	parsed := parse()
 
 	minimum := int64(math.MaxInt64)
@@ -116,7 +116,7 @@ func Part1() string {
 		}
 	}
 
-	return strconv.FormatInt(minimum, 10)
+	return minimum
 }
 
 func SplitRanges(start, end int64, ranges []ValRange) (result []ValRange) {
@@ -218,7 +218,7 @@ func (a almanac) seedsToLocations(start, end int64) (result []ValRange) {
 	return currentRanges
 }
 
-func Part2() string {
+func Part2() int64 {
 	parsed := parse()
 
 	minimum := int64(math.MaxInt64)
@@ -233,5 +233,5 @@ func Part2() string {
 		}
 	}
 
-	return strconv.FormatInt(minimum, 10)
+	return minimum
 }
