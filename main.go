@@ -15,14 +15,19 @@ import (
 	"github.com/brunorene/adventofcode2023/day09"
 	"github.com/brunorene/adventofcode2023/day10"
 	"github.com/brunorene/adventofcode2023/day11"
-	"github.com/brunorene/adventofcode2023/day12"
 	"github.com/brunorene/adventofcode2023/day13"
 	"github.com/brunorene/adventofcode2023/day14"
 	"github.com/brunorene/adventofcode2023/day15"
+	"github.com/brunorene/adventofcode2023/day16"
+	"github.com/pkg/profile"
+
+	"github.com/brunorene/adventofcode2023/day12"
 )
 
 //nolint:funlen // its ok
 func main() {
+	defer profile.Start(profile.ProfilePath(".")).Stop()
+
 	start := time.Now()
 	log.Printf("day01 part1: %v (%v)", day01.Part1(), time.Since(start))
 	start = time.Now()
@@ -83,4 +88,8 @@ func main() {
 	log.Printf("day15 part1: %v (%v)", day15.Part1(), time.Since(start))
 	start = time.Now()
 	log.Printf("day15 part2: %v (%v)", day15.Part2(), time.Since(start))
+	start = time.Now()
+	log.Printf("day16 part1: %v (%v)", day16.Part1(), time.Since(start))
+	start = time.Now()
+	log.Printf("day16 part2: %v (%v)", day16.Part2(), time.Since(start))
 }
