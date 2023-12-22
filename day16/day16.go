@@ -7,12 +7,15 @@ import (
 	"github.com/brunorene/adventofcode2023/common"
 )
 
-type PieceType rune
-type Direction int
+type (
+	PieceType rune
+	Direction int
+)
 
 const (
 	Right Direction = iota
 	Left
+	//nolint:varnamelen // up is ok
 	Up
 	Down
 	None
@@ -55,6 +58,7 @@ func parse() (parsed Contraption) {
 	return parsed
 }
 
+//nolint:funlen,exhaustive,gocyclo,cyclop // easier to reason and cases all covered
 func (c *Contraption) energize(direction Direction, coords Coords) {
 	if coords.X < 0 || coords.X >= len(c.Layout[0]) || coords.Y < 0 || coords.Y >= len(c.Layout) {
 		return
@@ -109,7 +113,6 @@ func (c *Contraption) energize(direction Direction, coords Coords) {
 			c.energize(Right, Coords{coords.X + 1, coords.Y})
 		case Up:
 			c.energize(Left, Coords{coords.X - 1, coords.Y})
-		default:
 		}
 	case SWNEMirror:
 		switch direction {
@@ -121,7 +124,6 @@ func (c *Contraption) energize(direction Direction, coords Coords) {
 			c.energize(Left, Coords{coords.X - 1, coords.Y})
 		case Up:
 			c.energize(Right, Coords{coords.X + 1, coords.Y})
-		default:
 		}
 	default:
 		switch direction {
@@ -133,7 +135,6 @@ func (c *Contraption) energize(direction Direction, coords Coords) {
 			c.energize(Down, Coords{coords.X, coords.Y + 1})
 		case Up:
 			c.energize(Up, Coords{coords.X, coords.Y - 1})
-		default:
 		}
 	}
 }
@@ -163,23 +164,23 @@ func Part2() int {
 
 	var maxEnergized int
 
-	for y, line := range contraption.Layout {
-		for x := range line {
+	for yIdx, line := range contraption.Layout {
+		for xIdx := range line {
 			direction := None
 
-			if x == 0 {
+			if xIdx == 0 {
 				direction = Left
 			}
 
-			if x == len(line)-1 {
+			if xIdx == len(line)-1 {
 				direction = Right
 			}
 
-			if y == 0 {
+			if yIdx == 0 {
 				direction = Down
 			}
 
-			if y == len(line)-1 {
+			if yIdx == len(line)-1 {
 				direction = Up
 			}
 
@@ -187,7 +188,7 @@ func Part2() int {
 				continue
 			}
 
-			current := calcEnergized(direction, Coords{x, y})
+			current := calcEnergized(direction, Coords{xIdx, yIdx})
 
 			if current > maxEnergized {
 				maxEnergized = current

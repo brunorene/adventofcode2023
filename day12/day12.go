@@ -2,55 +2,19 @@ package day12
 
 import (
 	"bufio"
-	"hash/maphash"
+	"bytes"
+	"math"
 	"os"
-	"slices"
 	"strconv"
 	"strings"
-	"sync"
 
 	"github.com/brunorene/adventofcode2023/common"
 )
 
 type Spring struct {
-	Condition    Matcher
+	Condition    string
 	Distribution []int
 	Length       int
-}
-
-type Matcher string
-
-var (
-	memoizeStore sync.Map
-	hashSeed     = maphash.MakeSeed()
-)
-
-func newMemoizeKey(starter [][]int, spaceCount int) uint64 {
-	source := make([]byte, 0, len(starter)+2)
-
-	source = append(source, byte(spaceCount))
-
-	for idx := range starter {
-		for _, num := range starter[idx] {
-			source = append(source, byte(num))
-		}
-	}
-
-	return maphash.Bytes(hashSeed, source)
-}
-
-func (m Matcher) matches(str string) (result bool) {
-	if len(m) != len(str) {
-		return false
-	}
-
-	for idx, item := range m {
-		if item != '?' && str[idx] != m[idx] {
-			return false
-		}
-	}
-
-	return true
 }
 
 func parse(repeat int) (parsed []Spring) {
@@ -85,7 +49,7 @@ func parse(repeat int) (parsed []Spring) {
 		matcher, _ := strings.CutSuffix(strings.Repeat(parts[0]+"?", repeat), "?")
 
 		parsed = append(parsed, Spring{
-			Condition:    Matcher(matcher),
+			Condition:    matcher,
 			Distribution: distribution,
 			Length:       len(parts[0])*repeat + repeat - 1,
 		})
@@ -94,111 +58,72 @@ func parse(repeat int) (parsed []Spring) {
 	return parsed
 }
 
-func sum(slice []int) (result int) {
-	for _, num := range slice {
-		result += num
-	}
+func (s Spring) unknownRangeEnd() (end int64) {
+	unknownLen := len(strings.ReplaceAll(strings.ReplaceAll(s.Condition, "#", ""), ".", ""))
 
-	return result
+	return int64(math.Pow(2, float64(unknownLen)) - 1)
 }
 
-func combinations(starter [][]int, spaceCount int) (result [][]int) {
-	if len(starter) == 0 {
-		return [][]int{{}}
-	}
+const (
+	Space = iota
+	OnSpring
+)
 
-	if len(starter) == 1 {
-		for _, num := range starter[0] {
-			if num == spaceCount {
-				return [][]int{{num}}
-			}
-		}
+func (s Spring) validateCandidate(empty int64) (result string) {
+	var emptyIdx int
 
-		return [][]int{{}}
-	}
+	var line bytes.Buffer
 
-	innerStarter := createStarter(starter, spaceCount)
+	var springLen int
 
-	// key := newMemoizeKey(innerStarter, spaceCount)
-	//
-	// if cache, exists := memoizeStore.Load(key); exists {
-	// 	return cache.([][]int)
-	// }
+	var currDist int
 
-	for _, num := range starter[0] {
-		suffixes := combinations(innerStarter[1:], spaceCount-num)
+	state := Space
 
-		for _, suffix := range suffixes {
-			if num+sum(suffix) != spaceCount {
+	for idx := 0; idx < s.Length; idx++ {
+		if s.Condition[idx] == '?' {
+			emptyIdx++
+
+			if empty&int64(math.Pow(2, float64(emptyIdx))) == 0 {
+				line.WriteRune('.')
+
+				if state == OnSpring {
+					currDist++
+				}
+
+				state = Space
+
 				continue
 			}
 
-			result = append(result, slices.Insert(suffix, 0, num))
+			line.WriteRune('#')
+
+			state = OnSpring
+
+			springLen++
+
+			continue
+		}
+
+		line.WriteRune(rune(s.Condition[idx]))
+
+		if s.Condition[idx] == '.' {
+			state = Space
+		} else {
+			state = OnSpring
+
+			springLen++
 		}
 	}
 
-	// memoizeStore.Store(key, result)
-
-	return result
-}
-
-func createStarter(starter [][]int, spaceCount int) [][]int {
-	innerStarter := make([][]int, len(starter))
-
-	for arrIdx, arr := range starter {
-		for numIdx, num := range arr {
-			if num == spaceCount && numIdx < len(starter[arrIdx])-1 {
-				innerStarter[arrIdx] = starter[arrIdx][:numIdx+1]
-
-				break
-			} else {
-				innerStarter[arrIdx] = starter[arrIdx]
-			}
-		}
-	}
-
-	return innerStarter
-}
-
-func createCandidate(distribution, spaces []int) (result string) {
-	for idx := range distribution {
-		result += strings.Repeat(".", spaces[idx]) + strings.Repeat("#", distribution[idx])
-	}
-
-	return result + strings.Repeat(".", spaces[len(spaces)-1])
-}
-
-func generateSeq(max int, withZero bool) (seq []int) {
-	if withZero {
-		seq = append(seq, 0)
-	}
-
-	for i := 1; i <= max; i++ {
-		seq = append(seq, i)
-	}
-
-	return seq
+	return line.String()
 }
 
 func (s Spring) generator() []string {
-	springCount := sum(s.Distribution)
-
-	spaceCount := s.Length - springCount
-
-	maxSpace := spaceCount - (len(s.Distribution) - 2)
-
-	spaces := make([][]int, 0, len(s.Distribution)-1)
-
-	for i := 0; i <= len(s.Distribution); i++ {
-		spaces = append(spaces, generateSeq(maxSpace, i == 0 || i == len(s.Distribution)))
-	}
-
 	var candidates []string
 
-	for _, comb := range combinations(spaces, spaceCount) {
-		candidate := createCandidate(s.Distribution, comb)
-
-		if s.Condition.matches(candidate) {
+	for empty := int64(0); empty <= s.unknownRangeEnd(); empty++ {
+		if candidate := s.validateCandidate(empty); candidate != "" {
 			candidates = append(candidates, candidate)
 		}
 	}
