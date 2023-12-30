@@ -6,7 +6,7 @@ import (
 
 	"github.com/pkg/profile"
 
-	"github.com/brunorene/adventofcode2023/day19"
+	"github.com/brunorene/adventofcode2023/day21"
 )
 
 //nolint:funlen // its ok
@@ -84,7 +84,13 @@ func main() {
 	// start = time.Now()
 	// log.Printf("day18 part2: %v (%v)", day18.Part2(), time.Since(start))
 	// start = time.Now()
-	log.Printf("day19 part1: %v (%v)", day19.Part1(), time.Since(start))
+	// log.Printf("day19 part1: %v (%v)", day19.Part1(), time.Since(start))
+	// start = time.Now()
+	// log.Printf("day19 part2: %v (%v)", day19.Part2(), time.Since(start))
+	// start = time.Now()
+	// log.Printf("day20 part1: %v (%v)", day20.Part1(), time.Since(start))
+	// start = time.Now()
+	log.Printf("day21 part1: %v (%v)", day21.Part1(), time.Since(start))
 	start = time.Now()
-	log.Printf("day19 part2: %v (%v)", day19.Part2(), time.Since(start))
+	log.Printf("day21 part2: %v (%v)", day21.Part2(), time.Since(start))
 }
